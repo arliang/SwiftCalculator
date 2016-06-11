@@ -25,12 +25,21 @@ class ViewController: UIViewController {
         }
         userIsInTheMiddleOfTyping = true
     }
-    // stops at lesson 1 01:10:00
-
+    
+    // 声明一个成员，类型转换的事情就由这个成员来完成
+    var displayValue: Double{
+        get {
+            return Double(display.text!)!
+        }
+        set {
+            display.text = String(newValue)
+        }
+    }
+    
     @IBAction func performOperation(sender: UIButton) {
         if let mathematicalSymbol = sender.currentTitle {
             if mathematicalSymbol == "π" {
-                display.text = String(M_PI)
+                displayValue = M_PI
             }
         }
     }
