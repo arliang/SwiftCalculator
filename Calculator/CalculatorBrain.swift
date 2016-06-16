@@ -8,6 +8,7 @@
 
 import Foundation
 
+// enums pass by reference
 enum Optional<T> {
     case None
     case Some(T)
@@ -45,7 +46,7 @@ class CalculatorBrain {
             switch operation {
             case .Constant(let value): accumulator = value
             case .UnaryOperation(let f): accumulator = f(accumulator)
-            case .BinaryOperation(let f): pending = PendingBinaryOpertionInfo(binaryFunction: f, firstOperand: accumulator)
+            case .BinaryOperation(let function): pending = PendingBinaryOpertionInfo(binaryFunction: function, firstOperand: accumulator)
             case .Equals:
                 if pending != nil {
                     accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
@@ -57,6 +58,7 @@ class CalculatorBrain {
     
     private var pending: PendingBinaryOpertionInfo?
     
+    // structs pass by value
     struct PendingBinaryOpertionInfo {
         var binaryFunction: (Double, Double) -> Double
         var firstOperand: Double
