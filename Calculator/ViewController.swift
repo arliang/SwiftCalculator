@@ -46,6 +46,5 @@ class ViewController: UIViewController {
             brain.performOperation(mathematicalSymbol)
         }
         displayValue = brain.result
-        print("currentTitle: \(sender.currentTitle)")
     }
 }

@@ -26,10 +26,7 @@ class CalculatorBrain {
         "e": Operation.constant(M_E),
         "√": Operation.unaryOperation(sqrt),
         "cos": Operation.unaryOperation(cos),
-        "+": Operation.binaryOperation({
-            print("\($0) + \($1)")
-            return $0 + $1
-        }),
+        "+": Operation.binaryOperation({ $0 + $1 }),
         "-": Operation.binaryOperation({ $0 - $1 }),
         "×": Operation.binaryOperation({ $0 * $1 }),
         "÷": Operation.binaryOperation({ $0 / $1 }),
@@ -47,22 +44,22 @@ class CalculatorBrain {
         if let operation = operations[symbol] {
             switch operation {
             case .constant(let value):
-                print("Constant(\(value)): \(accumulator)")
                 accumulator = value
             case .unaryOperation(let function):
-                print("Unary\(symbol): \(accumulator) = \(function(accumulator))")
                 accumulator = function(accumulator)
             case .binaryOperation(let function):
+                excutePendingBinaryOperation()
                 pending = PendingBinaryOpertionInfo(binaryFunction: function, firstOperand: accumulator)
-                print("BinaryOperation: \(pending?.firstOperand) accumulator:\(accumulator)")
             case .equals:
-                if pending != nil {
-                    print("Equals: \(pending?.firstOperand) accumulator:\(accumulator)")
-                    accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
-                    print("Equals after accumulator:\(accumulator)")
-                    pending = nil
-                }
+                excutePendingBinaryOperation()
             }
+        }
+    }
+    
+    private func excutePendingBinaryOperation(){
+        if pending != nil {
+            accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
+            pending = nil
         }
     }
     
