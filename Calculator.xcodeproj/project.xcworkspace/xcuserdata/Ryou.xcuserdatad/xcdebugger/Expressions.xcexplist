@@ -3,13 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CalculatorBrain.performOperation(String) -&gt; ():CalculatorBrain.swift">
+         contextName = "CalculatorBrain.result.getter:CalculatorBrain.swift">
          <PersistentStrings>
             <PersistentString
-               value = "operations[symbol]">
-            </PersistentString>
-            <PersistentString
-               value = "pending">
+               value = "accumulator">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -22,8 +19,22 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[UIWindow _sendTouchesForEvent:]:(null)">
+         <PersistentStrings>
+            <PersistentString
+               value = "0xcf2ba2(%rip)">
+            </PersistentString>
+            <PersistentString
+               value = "%rax">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.performOperation(UIButton) -&gt; ():ViewController.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "brain.result">
+            </PersistentString>
             <PersistentString
                value = "sender.currentTitle">
             </PersistentString>

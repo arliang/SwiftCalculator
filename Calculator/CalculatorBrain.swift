@@ -8,7 +8,6 @@
 
 import Foundation
 
-// enums pass by reference
 enum Optional<T> {
     case None
     case Some(T)
@@ -27,7 +26,10 @@ class CalculatorBrain {
         "e": Operation.Constant(M_E),
         "√": Operation.UnaryOperation(sqrt),
         "cos": Operation.UnaryOperation(cos),
-        "+": Operation.BinaryOperation({ $0 + $1 }),
+        "+": Operation.BinaryOperation({
+            print("\($0) + \($1)")
+            return $0 + $1
+        }),
         "-": Operation.BinaryOperation({ $0 - $1 }),
         "×": Operation.BinaryOperation({ $0 * $1 }),
         "÷": Operation.BinaryOperation({ $0 / $1 }),
@@ -44,12 +46,20 @@ class CalculatorBrain {
     func performOperation(symbol: String) {
         if let operation = operations[symbol] {
             switch operation {
-            case .Constant(let value): accumulator = value
-            case .UnaryOperation(let f): accumulator = f(accumulator)
-            case .BinaryOperation(let function): pending = PendingBinaryOpertionInfo(binaryFunction: function, firstOperand: accumulator)
+            case .Constant(let value):
+                print("Constant(\(value)): \(accumulator)")
+                accumulator = value
+            case .UnaryOperation(let function):
+                print("Unary\(symbol): \(accumulator) = \(function(accumulator))")
+                accumulator = function(accumulator)
+            case .BinaryOperation(let function):
+                pending = PendingBinaryOpertionInfo(binaryFunction: function, firstOperand: accumulator)
+                print("BinaryOperation: \(pending?.firstOperand) accumulator:\(accumulator)")
             case .Equals:
                 if pending != nil {
+                    print("Equals: \(pending?.firstOperand) accumulator:\(accumulator)")
                     accumulator = pending!.binaryFunction(pending!.firstOperand, accumulator)
+                    print("Equals after accumulator:\(accumulator)")
                     pending = nil
                 }
             }
@@ -58,7 +68,10 @@ class CalculatorBrain {
     
     private var pending: PendingBinaryOpertionInfo?
     
-    // structs pass by value
+    /* structs pass by value
+     * while classes pass by reference
+     * and structs woun't be copied until they are accumulated
+     */
     struct PendingBinaryOpertionInfo {
         var binaryFunction: (Double, Double) -> Double
         var firstOperand: Double
