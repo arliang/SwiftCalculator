@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         } else {
             display!.text = digit
         }
+        
+        brain.setOperand(displayValue)
         userIsInTheMiddleOfTyping = true
     }
     
