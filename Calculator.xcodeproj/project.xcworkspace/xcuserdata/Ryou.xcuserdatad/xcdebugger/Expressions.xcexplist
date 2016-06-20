@@ -30,6 +30,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CalculatorBrain.performOperation(String) -&gt; ():CalculatorBrain.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "accumulator">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.performOperation(UIButton) -&gt; ():ViewController.swift">
          <PersistentStrings>
             <PersistentString
